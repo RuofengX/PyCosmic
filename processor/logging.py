@@ -1,14 +1,10 @@
-from esper import Processor
-
 from objprint import op
 
-
-from components.ship import ShipBase
+from processor import Processor
+from world import World
 
 
 class Logger(Processor):
-    def process(self):
-
-        for entity, (ship_components) in self.world.get_components(ShipBase):
-
-            op(ship_components[0])
+    def process(self, world: World):
+        for ent in world.entities:
+            op(ent)

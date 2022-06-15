@@ -1,9 +1,11 @@
-from esper import Processor
-from components.base import Position, Velocity
+from processor import Processor
+from world import World
 
-from objprint import op
-class MoveProcessor(Processor):
-    def process(self):
-        for entity, (p, v) in self.world.get_components(Position, Velocity):
-            p += v
-            
+import numpy
+
+
+class Moving(Processor):
+    def process(self, world: World):
+        for ent in world.entities:
+            if hasattr(ent, "Position") and hasattr(ent, "Velocity"):  # TODO:需要NP完整解决方案
+                ent.Position = numpy.array((ent.Position)) + numpy.array((ent.Velocity))

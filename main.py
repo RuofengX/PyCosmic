@@ -1,19 +1,18 @@
-import time
-
-import esper
-from processor import logging, moving
-
-
-from EntityFactory.SimpleShip import SimpleShipFactory
+from world import World
+from processor import moving, logging
+from entity import ships
 
 if __name__ == "__main__":
-    world = esper.World()
-    world.add_processor(logging.Logger())
-    world.add_processor(moving.MoveProcessor())
+    w = World("debug")
+    # w.register_processor(moving.Moving())
+    w.register_processor(logging.Logger())
     
+    w.create_entity(ships.Ship(
+        Position=(0, 0),
+        Velocity=(1, 0),
+        tag={
+            "name": "秋风之墩"
+        }
+    ))
     
-    SimpleShipFactory(world).create_ship()
-    
-    while 1:
-        world.process()
-        time.sleep(1)
+    w.run_endless()

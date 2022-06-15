@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "esper"
-    ]
+    ],
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": false,
+    "python.linting.flake8Enabled": true
 }
