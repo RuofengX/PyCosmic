@@ -1,4 +1,5 @@
 from typing import List
+import traceback
 
 from util import Singleton
 
@@ -24,7 +25,12 @@ class Processor(metaclass=ProcessorMeta):
 
     def run_one_tick(self, world):
         for entity_index in self._target_entity_set:
-            self.process(world, entity_index)
+            try:
+                self.process(world, entity_index)
+            except Exception as e:
+                print("！！需要处理！！↓")
+                print(f"<{self.__class__.__name__}>处理器处理实体时发生异常↓")
+                traceback.print_exception(type(e), e, e.__traceback__)
 
     def process(self, world, entity_index: int):
         # 必须实现一个process方法，传入处理器的注册者world和当前遍历的实体entity；注册之后每tick对每个**需要的对象**调用一次；
@@ -32,12 +38,17 @@ class Processor(metaclass=ProcessorMeta):
 
 
 class ThreadSafeProcessor(Processor):
-    """线程安全处理器"""
+    """线程安全的、在一次Tick中可以并行运行的处理器"""
 
-    def __init__(self, target_entity_list: list = None):
-        super().__init__(target_entity_list)
+    def __init__(self):
+        super().__init__()
 
     def process(self, world, entity_index: int):
         pass
 
-        # TODO:让可行的处理器跨线程运行
+        # TODO:在world中实现让可行的处理器跨线程运行
+
+
+class TestExceptionProcessor(Processor):
+    def process(self, world, entity_index: int):
+        raise Exception("TestExceptionProcessor")

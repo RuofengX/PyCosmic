@@ -12,4 +12,9 @@ AvailableComponents = NewType("AvailableComponents", List[AvailableComponent])
 
 
 class ShipComponent(Entity):
+    """飞船组件
+
+    均为静态组件，以对象形式保存在飞船实例中
+    """
+
     pass

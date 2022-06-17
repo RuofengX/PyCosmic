@@ -1,11 +1,10 @@
 from objprint import op
 
-from processor import Processor
+from processor import ThreadSafeProcessor
 from world import World
 
 
-class Logger(Processor):
+class Logger(ThreadSafeProcessor):
     def process(self, world: World, entity_index: int):
         ent = world.entities[entity_index]
         op(ent)
-        # print(world.ticker.fps)

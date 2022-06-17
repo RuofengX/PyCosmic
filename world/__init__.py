@@ -6,7 +6,7 @@ import processor as rule
 
 
 class World:
-    def __init__(self, name, tick_per_second=20):
+    def __init__(self, name, tick_per_second=1000):
         self.name = name
         self.processors: List[rule.Processor] = []
         self.entities: List[
@@ -35,8 +35,12 @@ class World:
             self.processors.append(processor)
 
     def run_one_tick(self):
+        print("-" * 20)
+        print("tick:", self.tick)
         for processor in self.processors:
+            print("processor:", processor.__class__.__name__)
             processor.run_one_tick(self)
+            print("done")
 
     def run_endless(self):
         while True:
