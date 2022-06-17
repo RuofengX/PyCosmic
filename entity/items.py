@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List
 
 from entity import Entity
 
@@ -9,7 +10,7 @@ class Item(Entity):  # 物品
 
 @dataclass
 class ItemStack:  # 物品堆叠
-    item: items.Item
+    item: Item
     num: int = 0
 
 

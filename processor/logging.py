@@ -5,6 +5,7 @@ from world import World
 
 
 class Logger(Processor):
-    def process(self, world: World):
-        for ent in world.entities:
-            op(ent)
+    def process(self, world: World, entity_index: int):
+        ent = world.entities[entity_index]
+        op(ent)
+        # print(world.ticker.fps)
